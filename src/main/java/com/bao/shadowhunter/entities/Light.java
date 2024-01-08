@@ -1,6 +1,5 @@
 package com.bao.shadowhunter.entities;
 
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

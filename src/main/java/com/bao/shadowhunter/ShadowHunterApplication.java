@@ -10,6 +10,8 @@ public class ShadowHunterApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(ShadowHunterApplication.class, args);
+
+
     }
 
 }

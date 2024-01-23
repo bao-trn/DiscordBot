@@ -1,9 +1,11 @@
 package com.bao.shadowhunter.entities;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
+@Getter
 @RequiredArgsConstructor
 public class PlayerCard {
 
@@ -11,7 +13,7 @@ public class PlayerCard {
     final String name;
     final String winCondition;
     final String ability;
-    int hp;
+    final int startingHp;
 
     List<Equipment> equipped;
 

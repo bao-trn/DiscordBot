@@ -14,7 +14,8 @@ public class StartCommand implements GameCommands {
 
     @Override
     public Mono<Void> handle(Game game, Message event) {
-        game.getPlayers().forEach((user, playerCards) -> MessageUtils.whisperMessage(user, "your card is :crescent_moon:"));
+        game.initPlayerCards();
+        game.getPlayers().forEach((user, playerCards) -> MessageUtils.whisperMessage(user, playerCards.getTeam() + " " + playerCards.getName()));
         return MessageUtils.createMessage(event, "Starting game!")
                 .then(MessageUtils.createMessage(event, "Player Cards sent to each players"));
 

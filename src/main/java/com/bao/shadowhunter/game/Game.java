@@ -1,13 +1,19 @@
 package com.bao.shadowhunter.game;
 
-import com.bao.shadowhunter.entities.*;
+import com.bao.shadowhunter.entities.Equipment;
+import com.bao.shadowhunter.entities.PlayerCard;
+import com.bao.shadowhunter.entities.enums.Hunter;
+import com.bao.shadowhunter.entities.enums.Neutral;
+import com.bao.shadowhunter.entities.enums.Shadow;
 import com.bao.shadowhunter.utils.NumberUtils;
 import discord4j.core.object.entity.User;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @RequiredArgsConstructor
@@ -28,6 +34,8 @@ public class Game {
 
     List<Equipment> equipmentList;
 
+    private final Random random = new Random();
+
     public void addPlayer(User user) {
         this.players.put(user, null);
     }
@@ -41,7 +49,7 @@ public class Game {
         AtomicInteger nbShadows = new AtomicInteger();
         AtomicInteger nbHunters = new AtomicInteger();
         AtomicInteger nbNeutrals = new AtomicInteger();
-        Random random = new Random();
+
         players.forEach((user, playerCard) -> {
             int randomList = random.nextInt(3);
             switch (randomList) {
@@ -69,7 +77,7 @@ public class Game {
                         nbNeutrals.getAndIncrement();
                         break;
                     }
-                case 3: // fail-safe in case neutrals gets filled before other teams
+                case 3: // fail-safe in case neutrals gets filled before other teams shows as non-compliant
                     if (nbShadows.get() <= nbOpposingTeams) {
                         int randomIndexShadow = random.nextInt(shadows.size());
                         players.put(user, shadows.get(randomIndexShadow));

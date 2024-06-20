@@ -2,6 +2,7 @@ package com.bao.shadowhunter.game;
 
 import com.bao.shadowhunter.entities.Equipment;
 import com.bao.shadowhunter.entities.PlayerCard;
+import com.bao.shadowhunter.entities.Zone;
 import com.bao.shadowhunter.entities.enums.Hunter;
 import com.bao.shadowhunter.entities.enums.Neutral;
 import com.bao.shadowhunter.entities.enums.Shadow;
@@ -11,6 +12,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
@@ -19,13 +21,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 @RequiredArgsConstructor
 public class Game {
 
-    int id;
-
     @Getter
     HashMap<User, PlayerCard> players = new HashMap<>();
     List<PlayerCard> neutrals = Neutral.getPlayerCards();
     List<PlayerCard> shadows = Shadow.getPlayerCards();
     List<PlayerCard> hunters = Hunter.getPlayerCards();
+
+    @Getter
+    List<Zone> zones = initZones();
 
     @Setter
     int nbNeutral;
@@ -37,7 +40,7 @@ public class Game {
     private final Random random = new Random();
 
     public void addPlayer(User user) {
-        this.players.put(user, null);
+        players.put(user, null);
     }
 
     public void initPlayerCards() {
@@ -92,15 +95,17 @@ public class Game {
                     nbHunters.getAndIncrement();
 
             }
-
-
-
-
-
-
-
         });
     }
+
+    private List<Zone> initZones() {
+        List<Zone> zoneList = new ArrayList<>();
+        for(int i = 1; i < 4 ; i++) {
+            zoneList.add(new Zone(i));
+        }
+        return zoneList;
+    }
+
 
 
 

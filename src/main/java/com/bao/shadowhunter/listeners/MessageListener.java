@@ -2,6 +2,7 @@ package com.bao.shadowhunter.listeners;
 
 import com.bao.shadowhunter.game.Game;
 import com.bao.shadowhunter.interfaces.GameCommands;
+import com.bao.shadowhunter.services.GameService;
 import discord4j.core.GatewayDiscordClient;
 import discord4j.core.event.domain.message.MessageCreateEvent;
 import discord4j.core.object.entity.Message;
@@ -17,10 +18,12 @@ public class MessageListener {
 
     /* Listens to basic message creation */
     private final Collection<GameCommands> gameCommands;
+
     private final Game game;
-    public MessageListener (GatewayDiscordClient client) {
-        gameCommands = GameCommands.init();
-        game = new Game();
+
+    public MessageListener (GatewayDiscordClient client, GameService gameService) {
+        this.game = new Game();
+        gameCommands = GameCommands.init(gameService);
         client.on(MessageCreateEvent.class)
                 .flatMap(this::processCommand)
                 .onErrorResume(this::handleError)

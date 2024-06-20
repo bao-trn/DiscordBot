@@ -15,6 +15,8 @@ public class CreateCommand implements GameCommands {
 
     @Override
     public Mono<Void> handle(Game game, Message event) {
-        return MessageUtils.createMessage(event, "Game created, please type !join to participate");
+        //TODO reset fields of game
+        return MessageUtils.createMessage(event, "Game created, please type !join and click the button to participate");
     }
+
 }

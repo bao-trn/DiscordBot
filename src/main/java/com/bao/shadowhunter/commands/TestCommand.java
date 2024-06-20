@@ -14,6 +14,6 @@ public class TestCommand implements GameCommands {
 
     @Override
     public Mono<Void> handle(Game game, Message event) {
-        return MessageUtils.createMessage(event, "test");
+        return MessageUtils.handleJoin(game, event);
     }
 }
